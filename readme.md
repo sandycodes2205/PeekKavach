@@ -2,367 +2,429 @@
 
 **Tagline:** *Amcha Saath, Tumcha Aadhar* (आमचा साथ, तुमचा आधार)
 
-A Marathi-first, offline-capable Progressive Web App (PWA) designed to help farmers in Maharashtra prepare for crop-loss reporting, organize evidence, track the 72-hour reporting window, and navigate available reporting and escalation channels.
+**From crop damage to a clearer next step.**
 
-> **Our mission:** Help farmers move from “My crop is damaged” to “I have organized my evidence, know what to do next, and am ready to report my loss.”
+PeekRaksha is a Marathi-first, mobile-first Progressive Web App (PWA) prototype designed to help farmers in Maharashtra organize crop-loss incidents, prepare photographic evidence, track reporting deadlines, and navigate applicable official reporting channels.
+
+Built as a six-hour hackathon MVP, PeekRaksha demonstrates the first version of a broader product vision: a reliable, accessible crop-loss assistance platform that can eventually support farmers, agricultural institutions, and other stakeholders without replacing official insurance systems.
+
+> **Our mission:** Help farmers move from “My crop is damaged” to “I have organized my evidence, understand my next step, and am ready to report my loss.”
 
 ---
 
 ## 📌 Table of Contents
 
-1. [Problem Statement](#-problem-statement)
-2. [Our Solution](#-our-solution)
-3. [Target Users](#-target-users)
-4. [Five Distinguishing Features](#-five-distinguishing-features)
-5. [User Workflow](#-user-workflow)
-6. [Core Pages and Modules](#-core-pages-and-modules)
-7. [Technology Stack](#-technology-stack)
-8. [System Architecture](#-system-architecture)
-9. [Project Structure](#-project-structure)
-10. [Installation and Setup](#-installation-and-setup)
-11. [Data Model](#-data-model)
-12. [Offline-First Design](#-offline-first-design)
-13. [Privacy and Security](#-privacy-and-security)
-14. [Testing and Demonstration](#-testing-and-demonstration)
-15. [Current Implementation Status](#-current-implementation-status)
-16. [Limitations](#-limitations)
-17. [Future Scope](#-future-scope)
-18. [Team Contributions](#-team-contributions)
-19. [Impact](#-impact)
+1. [Executive Summary](#-executive-summary)
+2. [Problem Statement](#-problem-statement)
+3. [Evidence and Problem Validation](#-evidence-and-problem-validation)
+4. [Our Solution](#-our-solution)
+5. [Target Users](#-target-users)
+6. [Five Core Features](#-five-core-features)
+7. [User Workflow](#-user-workflow)
+8. [Technology Stack](#-technology-stack)
+9. [System Architecture](#-system-architecture)
+10. [The Six-Hour MVP Strategy](#-the-six-hour-mvp-strategy)
+11. [Project Structure](#-project-structure)
+12. [Installation and Setup](#-installation-and-setup)
+13. [Data Model](#-data-model)
+14. [Offline-First Design](#-offline-first-design)
+15. [Privacy and Security](#-privacy-and-security)
+16. [Testing and Validation](#-testing-and-validation)
+17. [Current Implementation Status](#-current-implementation-status)
+18. [From Prototype to Startup](#-from-prototype-to-startup)
+19. [Challenges in Scaling](#-challenges-in-scaling)
+20. [Business and Sustainability Model](#-business-and-sustainability-model)
+21. [Limitations and Risk Management](#-limitations-and-risk-management)
+22. [Future Roadmap](#-future-roadmap)
+23. [Team Contributions](#-team-contributions)
+24. [Expected Impact and Success Metrics](#-expected-impact-and-success-metrics)
+25. [References and Live Evidence](#-references-and-live-evidence)
+26. [Disclaimer](#-disclaimer)
 
 ---
 
-## 🚨 Problem Statement
+## 1. Executive Summary
 
-Farmers in Maharashtra who experience localized crop damage due to hailstorms, unseasonal rainfall, waterlogging, strong winds, or post-harvest rainfall may need to report their losses within the applicable 72-hour window under the Pradhan Mantri Fasal Bima Yojana (PMFBY).
+Crop damage can create an urgent problem for farmers. Depending on the type of loss and applicable insurance provisions, the farmer may need to notify an authorized channel, collect relevant evidence, provide crop and policy details, and follow up on the report.
 
-Although reporting channels exist, farmers may struggle to prepare the required enrollment details, collect useful photographic evidence, reach the appropriate reporting channel, and follow up on their report within the available time.
+However, knowing that a reporting channel exists is not the same as knowing how to use it effectively during a stressful incident.
 
-The challenges become more serious when farmers face:
+PeekRaksha addresses the farmer-side preparation and navigation problem.
 
-- Limited digital literacy or language barriers.
-- Unreliable internet connectivity in rural areas.
-- Missing policy or enrollment information.
-- Uncertainty about what photographs to capture.
-- Busy helplines or difficulty accessing digital reporting channels.
-- Confusion about the next step when their initial attempt fails.
+The prototype brings together:
 
-Existing reporting channels provide ways to submit an intimation, but farmers also need support with preparation, evidence organization, deadline tracking, and fallback planning.
+- Structured crop-damage incident recording.
+- A configurable 72-hour reporting countdown.
+- Guided photographic evidence collection.
+- Marathi voice assistance where supported.
+- Reporting and escalation guidance.
+- Fallback documentation and incident tracking.
+- A mobile-first interface designed for potentially unreliable connectivity.
+
+The project was developed within a six-hour hackathon constraint. Its initial goal was to demonstrate the essential user journey, not to build a complete insurance platform.
+
+The startup vision is to evolve the prototype through farmer interviews, field testing, secure data architecture, verified official guidance, accessibility improvements, and institutional partnerships.
+
+**Product boundary:** PeekRaksha assists with preparation and navigation. Creating an incident inside the app is not an official claim submission, and the app cannot guarantee eligibility, claim acceptance, or settlement.
+
+---
+
+## 2. Problem Statement
+
+Farmers experiencing crop damage from events such as hailstorms, localized flooding, inundation, or specified post-harvest weather events may need to follow particular reporting procedures.
+
+Under the relevant PMFBY operational provisions, certain localized calamity and post-harvest loss cases require immediate intimation within 72 hours. The applicable rules depend on the type of loss and the scheme provisions in force.
+
+The process can involve several separate tasks:
+
+- Identifying the appropriate reporting channel.
+- Locating crop, plot, and policy information.
+- Recording when and where the damage occurred.
+- Photographing the affected field and crop.
+- Providing the necessary incident details.
+- Keeping track of reporting attempts and reference numbers.
+- Knowing what to do if the first attempt is unsuccessful.
+
+These activities can become difficult when the farmer is under stress, has limited digital experience, or cannot depend on a stable internet connection.
 
 ### The core problem
 
-**Farmers have a limited reporting window, but lack a simple, guided tool that helps them organize the process from the moment crop damage occurs.**
+**How might we help farmers organize the steps surrounding crop-loss reporting without requiring them to navigate multiple sources of information independently?**
 
-*Note: Reporting requirements depend on the applicable scheme provisions and type of loss. The 72-hour workflow is intended to guide users, not determine claim eligibility.*
+PeekRaksha is designed to address this specific problem.
 
----
-
-## 💡 Our Solution
-
-PeekRaksha is a farmer-first Progressive Web App that provides a guided crop-loss incident workflow.
-
-Farmers can maintain their crop and policy information, create a damage incident, capture and organize photographs, track a countdown, access reporting instructions, generate a fallback letter, and share relevant incident information with family members or other helpers.
-
-The application is designed for Android smartphones through a mobile browser and can be installed on the home screen.
-
-### What PeekRaksha does
-
-- Helps farmers organize crop and policy information before an incident.
-- Records the reported damage date and time.
-- Tracks the configured reporting deadline.
-- Guides users through structured evidence collection.
-- Provides Marathi voice guidance where supported by the browser.
-- Offers reporting and escalation instructions.
-- Helps prepare a written fallback intimation letter.
-- Stores incident records locally and supports offline workflows where implemented.
-
-### What PeekRaksha does not claim to do
-
-PeekRaksha is an assistance and preparation tool, not an official PMFBY submission platform.
-
-It does not automatically register an insurance claim, guarantee acceptance of evidence, establish eligibility, or guarantee claim settlement.
+It does not assume that every farmer faces the same difficulties, nor does it claim that an app alone can resolve the administrative, eligibility, assessment, or settlement challenges of crop insurance.
 
 ---
 
-## 👨‍🌾 Target Users
+## 3. Evidence and Problem Validation
 
-Our primary users are smallholder farmers in rural Maharashtra, including regions such as Vidarbha, Marathwada, and the Konkan belt.
+Our problem framing is informed by official scheme documentation and published reporting about agricultural losses and crop-insurance administration.
 
-| Attribute | Design consideration |
+### Evidence 1: Unseasonal rainfall and crop losses
+
+**Source:** Reuters, October 28, 2025
+
+The report describes how late-season rainfall damaged Indian crops, including soybean and cotton, affecting expected production and farmers' incomes.
+
+Link: https://www.reuters.com/business/environment/monsoon-promise-turns-sour-indias-crops-ruined-by-late-downpours-2025-10-28/
+
+**Product implication:** Farmers need practical support that can be used during a crop-loss incident, rather than an app that only provides general agricultural information.
+
+### Evidence 2: The 72-hour reporting requirement
+
+**Source:** PMFBY Revised Operational Guidelines
+
+The relevant guidelines specify immediate intimation within 72 hours for the covered localized calamity and post-harvest loss procedures. They also describe applicable reporting channels and required information.
+
+Link: https://pmfby.gov.in/pdf/Revised_Operational_Guidelines.pdf
+
+**Product implication:** Incident timestamps, deadline awareness, evidence organization, and reporting guidance are core product features.
+
+The 72-hour timer is a guidance mechanism. It must not be presented as a universal deadline for every type of crop loss.
+
+### Evidence 3: Crop-insurance claim integrity
+
+**Source:** The Indian Express, January 22, 2025
+
+The newspaper reported that Maharashtra's agriculture department had identified 4.14 lakh allegedly bogus crop-insurance claims submitted in 2024.
+
+Link: https://indianexpress.com/article/cities/mumbai/maharashtra-agriculture-dept-finds-4-14-lakh-bogus-crop-insurance-claims-9792163/
+
+**Product implication:** A future platform must distinguish farmer-entered details from verified information, preserve evidence provenance, protect against misuse, and avoid implying that completing a checklist proves a claim is genuine.
+
+### Evidence 4: Crop insurance involves formal assessment
+
+**Source:** Press Information Bureau, July 24, 2026
+
+The government explains that PMFBY generally uses area-level yield assessment for many claims, while specified localized calamities and post-harvest losses follow individual-farm assessment procedures.
+
+Link: https://www.pib.gov.in/PressReleasePage.aspx?PRID=2289028&lang=2&reg=48
+
+**Product implication:** Evidence preparation is useful, but it does not replace official inspection, eligibility checks, yield assessment, or administrative decisions.
+
+### Evidence 5: Official reporting channels already exist
+
+**Source:** Official PMFBY portal
+
+The PMFBY portal lists the Krishi Rakshak Portal and Helpline, 14447, for crop-loss reporting and grievances.
+
+Link: https://pmfby.gov.in/pmfbyDashboard
+
+**Product implication:** PeekRaksha should help farmers navigate existing authorized channels rather than attempt to become an unofficial substitute for them.
+
+### What this evidence establishes
+
+These sources establish that crop loss, time-sensitive reporting requirements, evidence-related procedures, and formal insurance administration are real parts of the agricultural ecosystem.
+
+They do not establish that PeekRaksha has already reduced reporting delays or improved claim outcomes. Those are hypotheses that must be tested with actual users.
+
+---
+
+## 4. Our Solution
+
+PeekRaksha is a farmer-side crop-loss assistance tool.
+
+It organizes the steps before and around official reporting into a single guided experience.
+
+### What the prototype aims to provide
+
+1. **Prepare:** Keep relevant crop and plot information organized.
+2. **Record:** Create an incident with a damage date, time, location, and description.
+3. **Document:** Guide the collection of field and crop photographs.
+4. **Track:** Display the configured reporting deadline.
+5. **Navigate:** Present reporting instructions and applicable official channels.
+6. **Follow up:** Store farmer-entered reporting details and reference numbers.
+7. **Coordinate:** Prepare a summary that can be shared with a trusted helper.
+
+### What PeekRaksha does not do
+
+- It does not independently determine insurance eligibility.
+- It does not submit an official claim merely because an incident is created.
+- It does not verify insurer receipt of a report.
+- It does not replace official crop inspection or assessment.
+- It does not guarantee claim acceptance, compensation, or settlement.
+- It does not claim that photographs captured by the app are automatically accepted as official evidence.
+
+---
+
+## 5. Target Users
+
+| User group | Primary need |
 |---|---|
-| Primary users | Smallholder farmers |
-| Initial geography | Maharashtra, India |
-| Primary language | Marathi |
-| Device | Android smartphone with a compatible browser |
-| Connectivity | May be unreliable or intermittent |
-| Digital literacy | Designed for low-to-moderate digital literacy |
-| Crops | Cotton, soybean, mango, and other insured crops |
-| Secondary users | Family members, neighbours, agriculture assistants |
+| Smallholder farmers | Simple instructions and incident organization |
+| Marathi-speaking farmers | Accessible local-language guidance |
+| Farmers with intermittent connectivity | Ability to prepare and save information offline |
+| Family members and neighbours | Consent-based assistance with reporting preparation |
+| Agriculture assistants | Structured information to help farmers navigate next steps |
+| Future institutional partners | A potential farmer-support workflow that complements existing systems |
 
-The interface emphasizes readable text, large touch targets, visual choices, guided instructions, and minimal typing.
+### Initial market
 
----
+The initial target geography is rural Maharashtra, with potential pilot locations across Vidarbha, Marathwada, and the Konkan region.
 
-## ⭐ Five Distinguishing Features
+These are proposed pilot regions, not locations where the product has already been deployed.
 
-### 1. Evidence Strength Meter
+### Design principles
 
-**Problem:** Farmers may take random photographs without knowing whether they have documented their field and crop damage adequately.
-
-**Our approach:** PeekRaksha guides farmers through a structured evidence checklist.
-
-Recommended evidence items include:
-
-- Wide-angle photograph of the field.
-- Close-up photograph of the damaged crop.
-- Photograph showing a recognizable landmark or location context.
-- Short description of the damage.
-- Additional photographs where useful.
-
-The Evidence Strength Meter reflects checklist completion and helps the farmer identify missing items.
-
-**Expected benefit:** More organized evidence collection and fewer forgotten steps.
-
-The meter is a completeness indicator, not an insurance-company assessment or guarantee of claim acceptance.
-
-### 2. Voice-First Marathi Mode
-
-**Problem:** Reading instructions on a small screen can be difficult, particularly during a stressful incident.
-
-**Our approach:** Provide a speaker button on important screens using the browser's Web Speech API.
-
-The implementation uses `speechSynthesis` and requests the `mr-IN` locale when an appropriate Marathi voice is available.
-
-Voice guidance can be provided for:
-
-- Incident creation.
-- Evidence-capture instructions.
-- Reporting details.
-- The script for contacting the helpline.
-- Escalation instructions.
-
-**Expected benefit:** Improved accessibility for Marathi-speaking farmers.
-
-Voice availability depends on the device and browser. A readable text alternative remains available.
-
-### 3. Storm-Eve Prepare Mode
-
-**Problem:** Evidence collected only after a storm may not show the condition of the crop beforehand.
-
-**Our approach:** A preparation screen encourages farmers to capture photographs of their healthy crops before an anticipated weather event.
-
-The screen can display:
-
-- A weather warning or demonstration alert.
-- Instructions to capture before photographs.
-- A checklist of crop and field views.
-- Saved photographs for later reference.
-
-Open-Meteo can optionally provide weather forecast data. A manual demonstration toggle can be used when live weather integration is unavailable.
-
-**Expected benefit:** Better-organized before-and-after documentation.
-
-Forecasts are informational and should not be presented as guarantees that damage will occur.
-
-### 4. Panic-Proof Escalation Ladder
-
-**Problem:** A farmer who cannot complete an initial reporting attempt may lose valuable time deciding what to do next.
-
-**Our approach:** Display a visual escalation timeline based on the recorded incident deadline.
-
-The proposed guidance is:
-
-| Elapsed time | Suggested action |
-|---|---|
-| 0–24 hours | Attempt reporting through the designated helpline or applicable official channel |
-| 24–48 hours | If unsuccessful, try another applicable channel, such as the official WhatsApp chatbot where available |
-| 48–72 hours | Seek assistance from the relevant bank or agriculture office and prepare written documentation |
-
-The interface highlights the current stage and provides the corresponding action.
-
-**Expected benefit:** A clear next step when an initial reporting attempt fails.
-
-These stages are a product-guidance model, not official government-mandated escalation deadlines. Farmers should attempt official reporting as early as possible rather than waiting for a later stage.
-
-### 5. Neighbour and Family Share Pack
-
-**Problem:** A farmer may need help from a family member, neighbour, or agriculture assistant to complete the reporting process.
-
-**Our approach:** Prepare a shareable summary containing relevant incident details, the selected crop and plot, evidence references, the deadline, and the reporting status.
-
-Depending on the available browser and implementation, the user can share the summary through WhatsApp or the device's native sharing interface.
-
-**Expected benefit:** Easier coordination and assistance from trusted people nearby.
-
-Sensitive policy details and photographs should only be shared with the farmer's consent.
+- Marathi-first language support.
+- Readable text and large touch targets.
+- Minimal typing and clear progress indicators.
+- Visual evidence-capture instructions.
+- A clear distinction between saved information and officially submitted information.
+- Graceful behavior when network access or browser permissions are unavailable.
 
 ---
 
-## 🔄 User Workflow
+## 6. Five Core Features
 
-The application follows a guided incident-management process.
+### 6.1 Evidence Strength Meter
+
+Guides the farmer through a structured checklist:
+
+- Full-field photograph.
+- Close-up of the damaged crop.
+- Recognizable landmark or location-context photograph.
+- Written description of the damage.
+
+The meter indicates checklist completeness. It is not an insurer's evidence-quality score and does not establish claim validity.
+
+### 6.2 Marathi Voice Assistance
+
+Uses browser speech synthesis to read selected instructions in Marathi when a suitable voice is available.
+
+Potential use cases include incident creation, evidence capture, reporting instructions, and escalation guidance.
+
+Voice availability depends on the browser and device. Text alternatives must remain available.
+
+### 6.3 Storm-Eve Prepare Mode
+
+Encourages farmers to organize crop and field information before anticipated adverse weather.
+
+Where supported, the feature may display forecast information from Open-Meteo and allow farmers to record before-event photographs.
+
+Forecasts are informational. A weather alert is not a guarantee of crop damage or a prediction of insurance eligibility.
+
+### 6.4 Guided Reporting and Escalation
+
+Presents the applicable reporting instructions, relevant official contact options, and suggested follow-up steps.
+
+The interface should encourage prompt reporting and should never imply that a farmer must wait until a later stage before contacting an official channel.
+
+Any staged escalation timeline is product guidance, not a government-mandated schedule.
+
+### 6.5 Family and Helper Share Pack
+
+Prepares a summary of relevant incident details, evidence references, the configured deadline, and the farmer-entered reporting status.
+
+Sharing occurs only with the farmer's consent. Sensitive information should be excluded by default unless it is necessary and explicitly selected.
+
+---
+
+## 7. User Workflow
 
 ```text
-                  HOME PAGE
-                      |
-          +-----------+-----------+
-          |                       |
-     Crop Damage              Prepare Mode
-          |                       |
-          |                 Capture Before Photos
-          |
-     Select Crop / Plot
-          |
-     Record Damage Date
-          |
-     Select Damage Type
-          |
-     Create Incident
-          |
-     Start Deadline Countdown
-          |
-     Capture Evidence
-          |
-     Complete Evidence Checklist
-          |
-     Review Reporting Guidance
-          |
-     Attempt Official Reporting
-          |
-      +---+----------------+
-      |                    |
-   Reported             Unsuccessful
-      |                    |
- Enter Ticket         Escalation Guidance
- Number                    |
-      |               Alternate Channel
-      |                    |
-      +---------+----------+
-                |
-         Save Incident Record
-                |
-         Share Pack / Timeline
+                    HOME PAGE
+                        |
+            +-----------+-----------+
+            |                       |
+       Crop Damage              Prepare Mode
+            |                       |
+      Select Crop / Plot      Capture Before Photos
+            |
+      Record Date and Time
+            |
+      Record Damage Location
+            |
+      Create Incident
+            |
+      Start Deadline Countdown
+            |
+      Capture Photographic Evidence
+            |
+      Complete Evidence Checklist
+            |
+      Review Reporting Guidance
+            |
+      Contact Applicable Official Channel
+            |
+       Record Reporting Attempt
+            |
+      +-----+-----------------+
+      |                       |
+  Reference Saved        Attempt Unsuccessful
+      |                       |
+  Track Follow-up       Review Alternate Channels
+      |                       |
+      +-----------+-----------+
+                  |
+          Save Incident History
+                  |
+          Generate Summary / Letter
 ```
 
-The actual official report must be made through an applicable official channel. Creating an incident inside PeekRaksha does not itself constitute official intimation.
+Creating an incident in PeekRaksha is a local preparation action, not an official submission.
 
 ---
 
-## 📱 Core Pages and Modules
-
-| Page | Purpose |
-|---|---|
-| Home | Primary damage-report action, weather preparation, and shortcuts |
-| Farmer Profile | Store farmer, crop, plot, and policy details |
-| Crop Damage | Record when and how the crop was damaged |
-| Incident Details | Display the selected crop, plot, location, and countdown |
-| Evidence Capture | Capture, preview, and organize photographs |
-| Evidence Strength | Show checklist completion and missing items |
-| Prepare Mode | Encourage before-damage photographs |
-| Report Now | Display reporting instructions and contact actions |
-| Escalation | Show the recommended next reporting step |
-| Fallback Letter | Generate a written intimation document |
-| Ticket and Timeline | Store the entered ticket number and follow-up information |
-| Share Pack | Prepare a summary for family or other helpers |
-| Reports | List current and previous incident records |
-| Settings | Language, voice preferences, and local data management |
-
-The initial implementation prioritizes the complete damage-report journey and the five distinguishing features.
-
----
-
-## 🛠️ Technology Stack
+## 8. Technology Stack
 
 | Technology | Purpose |
 |---|---|
 | React | Component-based user interface |
-| Vite | Development server and production build |
+| Vite | Development server and build tooling |
 | JavaScript | Application logic |
-| HTML5 and CSS3 | Accessible, responsive interface |
-| Progressive Web App APIs | Installable browser-based experience |
-| Service Worker | Cache application resources for offline access |
-| IndexedDB / Dexie | Local persistence for structured records and photographs |
-| Media Capture APIs | Camera access and photograph capture |
+| HTML5 and CSS3 | Responsive interface |
+| PWA APIs | Installable browser experience |
+| Service Worker | Application resource caching, where configured |
+| IndexedDB / Dexie | Structured local persistence, where implemented |
+| Media Capture APIs | Camera access |
 | Geolocation API | Optional location metadata |
-| Web Speech API | Marathi voice guidance where supported |
-| jsPDF | On-device fallback letter generation |
-| `tel:` links | Initiate a helpline call |
-| WhatsApp deep links / Web Share API | Share instructions and incident summaries |
-| Open-Meteo (optional) | Weather forecast integration |
+| Web Speech API | Marathi voice assistance where supported |
+| jsPDF | Local document generation, where implemented |
+| Web Share API and WhatsApp links | Consent-based sharing |
+| `tel:` links | Initiate phone calls |
+| Open-Meteo | Optional weather forecasts |
 
-### Architecture decision
+The exact dependency list and implementation status must be confirmed against the current repository.
 
-The MVP is **PWA-first**, not a native Android application.
+### Why a PWA?
 
-A backend is not required for the core demonstration. An optional backend may be introduced later for controlled share links, cloud synchronization, or other features that require server-side functionality.
+We selected a Progressive Web App for the initial prototype because it supports a browser-based mobile experience without requiring a separate native Android application.
+
+For a six-hour build, React and Vite allowed us to focus on the user journey, interface, and core interactions.
+
+A PWA is a prototype-stage choice, not a claim that it is always superior to a native application. The appropriate production platform will depend on field testing, device compatibility, offline requirements, and maintenance costs.
 
 ---
 
-## 🏗️ System Architecture
+## 9. System Architecture
 
 ```text
-+----------------------------------------------------+
-|                  FARMER / HELPER                   |
-|                 Android Browser                   |
-+---------------------------+------------------------+
-                            |
-                            v
-+----------------------------------------------------+
-|              PEEKRAKSHA FRONTEND PWA               |
-|                                                    |
-| Home | Profile | Crop Damage | Evidence Capture    |
-| Countdown | Report Now | Escalation | Share Pack   |
-+---------------------------+------------------------+
-                            |
-              +-------------+-------------+
-              |                           |
-              v                           v
-+---------------------------+  +---------------------+
-| Browser Device APIs       |  | Offline PWA Layer   |
-|                           |  |                     |
-| Camera                    |  | Service Worker      |
-| Geolocation               |  | Cached App Shell    |
-| Speech Synthesis          |  | Offline Navigation  |
-| Web Share                 |  |                     |
-+---------------------------+  +----------+----------+
-                                          |
-                                          v
-                               +----------------------+
-                               | Local Data Storage   |
-                               |                      |
-                               | IndexedDB / Dexie    |
-                               | Farmer Profile       |
-                               | Policies / Plots     |
-                               | Incidents / Photos   |
-                               | Tickets / Notes      |
-                               +----------+-----------+
-                                          |
-                             When required and online
-                                          |
-                                          v
-                               +----------------------+
-                               | Optional Services    |
-                               |                      |
-                               | Open-Meteo           |
-                               | Share-link Backend   |
-                               | Optional Cloud Sync  |
-                               +----------------------+
-
-External actions:
-- Official crop-insurance helpline
-- Applicable official reporting channels
-- WhatsApp chatbot, where available
-- Bank / agriculture office
-- Family / neighbour / helper
+                  FARMER / HELPER
+                         |
+                         v
+              REACT-BASED PWA
+                         |
+        +----------------+----------------+
+        |                |                |
+        v                v                v
+   Incident UI      Evidence UI      Reporting UI
+        |                |                |
+        +----------------+----------------+
+                         |
+                         v
+                APPLICATION SERVICES
+                         |
+              +----------+----------+
+              |                     |
+              v                     v
+       Local Data Layer       Browser APIs
+       IndexedDB / Dexie      Camera / Speech
+       where implemented      Location / Share
+              |
+              v
+       Saved Incidents
+       Photos and Notes
+       Follow-up Records
+              |
+              | When connectivity is required
+              v
+       Optional External Services
+       Weather API
+       Authorized Reporting Channels
+       Future Backend / Cloud Sync
 ```
 
-The local application is the primary workflow engine. Optional external services should not be required for core incident creation, evidence organization, and deadline display.
+### Architectural principle
+
+The initial product should keep core incident preparation independent of optional external services wherever possible.
+
+A future backend may provide synchronization, authenticated access, backup, audit records, or authorized institutional integrations.
+
+Official reporting remains a separate action unless a verified and authorized integration is developed.
 
 ---
 
-## 📂 Project Structure
+## 10. The Six-Hour MVP Strategy
 
-The proposed source structure is:
+The hackathon imposed a strict time constraint. Our goal was to demonstrate the essential user journey rather than build every component of a production platform.
+
+### Why we prioritized a focused prototype
+
+Under a six-hour deadline, attempting to build a complete insurance workflow, backend, authentication system, native mobile application, and official integrations would introduce unnecessary complexity and integration risk.
+
+We instead focused on a small number of user-facing capabilities that demonstrate the product's central idea.
+
+| Priority | Reason |
+|---|---|
+| Incident creation | Establishes the core crop-loss workflow |
+| Deadline awareness | Makes time sensitivity visible |
+| Structured evidence capture | Gives the user an actionable checklist |
+| Reporting instructions | Connects the prototype to real-world next steps |
+| Local-first design | Reduces dependence on continuous connectivity |
+| Modular React UI | Allows future improvements without redesigning the entire application |
+
+### What the prototype proves
+
+A working demonstration can show that a guided crop-loss workflow is technically feasible and that the proposed interaction can be represented in a mobile-first interface.
+
+### What the prototype does not yet prove
+
+- That farmers can use it independently.
+- That every browser supports every feature.
+- That the reporting guidance is correct for every policy and loss type.
+- That it reduces reporting time or improves claim outcomes.
+- That the architecture is ready for thousands of concurrent users.
+- That institutional partners will adopt or pay for it.
+
+This distinction is central to our development strategy: demonstrate feasibility first, validate usability next, and scale only after evidence supports the decision.
+
+---
+
+## 11. Project Structure
+
+The intended modular structure is:
 
 ```text
 peekraksha/
@@ -374,7 +436,6 @@ peekraksha/
 │   │   └── routes.jsx
 │   ├── components/
 │   │   ├── Header.jsx
-│   │   ├── Sidebar.jsx
 │   │   ├── Countdown.jsx
 │   │   ├── EvidenceMeter.jsx
 │   │   └── VoiceButton.jsx
@@ -386,8 +447,7 @@ peekraksha/
 │   │   ├── Escalation.jsx
 │   │   ├── FallbackLetter.jsx
 │   │   ├── SharePack.jsx
-│   │   ├── Reports.jsx
-│   │   └── Settings.jsx
+│   │   └── Reports.jsx
 │   ├── services/
 │   │   ├── storage.js
 │   │   ├── camera.js
@@ -404,318 +464,462 @@ peekraksha/
 └── README.md
 ```
 
-This is the intended organization; files may differ in the current repository.
+This is the intended architecture. Actual filenames and modules may differ from the current implementation.
 
 ---
 
-## 🚀 Installation and Setup
+## 12. Installation and Setup
 
 ### Prerequisites
 
 - Node.js and npm.
 - Git.
-- A modern desktop or mobile browser.
-- A smartphone for camera, voice, and installation testing.
+- A modern browser.
+- An Android smartphone for mobile and camera testing.
 
-### 1. Clone the repository
-
-Replace the placeholder URL with the actual GitHub repository URL.
+### Clone the repository
 
 ```bash
 git clone <YOUR_GITHUB_REPOSITORY_URL>
 cd peekraksha
 ```
 
-### 2. Install dependencies
+### Install dependencies
 
 ```bash
 npm install
 ```
 
-### 3. Start the development server
+### Run locally
 
 ```bash
 npm run dev
 ```
 
-Open the local URL printed by Vite, typically:
+Open the URL displayed by Vite, typically `http://localhost:5173`.
 
-```text
-http://localhost:5173
-```
-
-### 4. Build for production
+### Create a production build
 
 ```bash
 npm run build
 ```
 
-### 5. Preview the production build
+### Preview the build
 
 ```bash
 npm run preview
 ```
 
-### 6. Test on a smartphone
-
-Deploy the application over HTTPS or use a secure local development setup. Camera and geolocation APIs generally require a secure context, such as HTTPS or localhost.
-
-On a supported browser, use **Add to Home Screen** or **Install app** to install the PWA.
-
-> Installation, offline operation, and individual browser APIs must be verified against the actual implementation and target device.
+Camera access, geolocation, installation, and other browser APIs must be tested in an appropriate secure context, generally HTTPS or localhost.
 
 ---
 
-## 🗃️ Data Model
+## 13. Data Model
 
-The application uses a local-first data model.
+The proposed local-first data model contains the following entities.
 
 ### Farmer Profile
 
-| Field | Description |
-|---|---|
-| `id` | Local profile identifier |
-| `name` | Farmer's name |
-| `village` | Village |
-| `district` | District |
-| `language` | Preferred language |
+- `id`
+- `name`
+- `village`
+- `district`
+- `language`
 
-### Policies and Plots
+### Policy and Plot
 
-| Field | Description |
-|---|---|
-| `id` | Local policy or plot identifier |
-| `crop` | Crop name |
-| `season` | Crop season |
-| `plot_no` | Plot number |
-| `insurer` | Insurance company |
-| `enrollment_no` | Enrollment or policy reference |
+- `id`
+- `crop`
+- `season`
+- `plot_no`
+- `insurer`
+- `enrollment_no`
 
 ### Incident
 
-| Field | Description |
-|---|---|
-| `id` | Unique local incident identifier |
-| `policy_id` | Associated policy or plot |
-| `peril` | Reported cause of damage |
-| `occurred_at` | Reported damage date/time |
-| `deadline_at` | Configured reporting deadline |
-| `status` | Current incident workflow status |
-| `note` | Optional description |
+- `id`
+- `policy_id`
+- `peril`
+- `occurred_at`
+- `deadline_at`
+- `status`
+- `note`
 
 ### Evidence Photo
 
-| Field | Description |
-|---|---|
-| `id` | Photo identifier |
-| `incident_id` | Associated incident |
-| `blob` | Locally stored image data |
-| `lat` | Optional latitude |
-| `lng` | Optional longitude |
-| `taken_at` | Recorded capture time |
+- `id`
+- `incident_id`
+- `blob`
+- `lat`
+- `lng`
+- `taken_at`
 
 ### Report Record
 
-| Field | Description |
-|---|---|
-| `id` | Local report-record identifier |
-| `incident_id` | Associated incident |
-| `channel` | Reporting channel used |
-| `ticket_no` | Ticket number entered by the farmer |
-| `reported_at` | Reported submission time |
+- `id`
+- `incident_id`
+- `channel`
+- `ticket_no`
+- `reported_at`
 
-These records support local tracking and do not establish that an insurer has received or accepted a claim.
+These are proposed data structures, not a statement that every field is already implemented.
+
+A farmer-entered ticket number or timestamp is not equivalent to a verified official record.
 
 ---
 
-## 📴 Offline-First Design
+## 14. Offline-First Design
 
-Rural connectivity may be unreliable, particularly during severe weather.
-
-PeekRaksha is designed to support core workflows without requiring a constant internet connection.
+Rural connectivity can be intermittent. PeekRaksha therefore prioritizes local preparation wherever feasible.
 
 ### Intended offline capabilities
 
-- Load previously cached application resources.
-- View previously saved farmer and policy information.
-- Create and update local incident records.
-- Save captured photographs locally.
-- Display a countdown calculated from the saved deadline.
-- Generate a fallback letter locally, if the required font and PDF libraries are available.
-- Continue preparing evidence and reporting information.
+- Load cached application resources.
+- Access previously saved incident information.
+- Record new incidents locally.
+- Save evidence locally.
+- Display a countdown from a stored deadline.
+- Prepare documentation when required libraries and fonts are available.
 
-### Operations that may require connectivity
+### Connectivity-dependent operations
 
-- Retrieving current weather forecasts.
-- Opening external websites or messaging services.
-- Sharing through online channels.
-- Uploading evidence to optional cloud storage.
-- Synchronizing data with an optional backend.
+- Fetch current weather forecasts.
+- Open external websites.
+- Contact remote reporting services.
+- Share information through online channels.
+- Synchronize with a future cloud backend.
 
-Offline functionality must be tested in airplane mode. External calls and message delivery cannot be guaranteed while disconnected.
+Offline operation must be verified through actual airplane-mode testing. Local browser storage is not a substitute for a reliable backup system.
 
 ---
 
-## 🔐 Privacy and Security
+## 15. Privacy and Security
 
-Farmers may store sensitive policy information and photographs in the application.
+A production version may handle sensitive farmer, policy, location, and photographic information.
 
-Our design principles include:
+Our design principles are:
 
-- Store personal and policy data locally by default.
-- Do not collect Aadhaar numbers.
-- Avoid storing full bank account numbers.
+- Collect only information necessary for the selected workflow.
+- Avoid collecting Aadhaar numbers.
+- Do not store unnecessary bank account details.
 - Request camera and location permissions only when needed.
-- Allow farmers to review and remove their locally stored information.
-- Request consent before sharing photographs or personal details.
-- Avoid transmitting evidence to a backend unless the user-facing functionality requires it and the user is informed.
-- Clearly explain that timestamps and GPS metadata are supporting context, not independently verified official evidence.
+- Clearly explain what information is stored and shared.
+- Obtain consent before sharing incident information.
+- Separate locally saved data from information verified by an official source.
+- Provide a way to review and delete locally stored records.
+- Introduce appropriate authentication, access controls, and encryption before enabling sensitive cloud synchronization.
 
-Browser storage is device-local, not equivalent to encrypted secure storage. Users should protect their devices and avoid sharing sensitive information unnecessarily.
+Browser storage is not inherently secure against device compromise. Production deployment requires a formal privacy and security review.
 
 ---
 
-## 🧪 Testing and Demonstration
+## 16. Testing and Validation
 
-### Essential test cases
+### Essential functional tests
 
 | Test | Expected result |
 |---|---|
-| Create a damage incident | Incident details and deadline are saved |
-| Refresh the application | Existing incident and countdown are restored |
-| Deny camera permission | The user receives a clear explanation and can continue where possible |
-| Capture a photograph | Image is previewed and associated with the incident |
-| Capture without GPS | Photograph can still be saved |
-| Complete evidence checklist | Meter updates according to checklist completion |
-| Activate Marathi voice | Instructions are read when a suitable voice is available |
-| Open Report Now | Correct reporting instructions and external actions are displayed |
-| Simulate a failed reporting attempt | Escalation guidance is available |
-| Generate a fallback letter | A locally generated document is produced if implemented |
-| Enable airplane mode | Previously cached and saved workflows remain usable |
-| Share an incident | A summary is prepared for the chosen sharing channel |
+| Create an incident | Incident details are saved |
+| Refresh the app | Saved incident and countdown are restored |
+| Deny camera access | The app explains the limitation and offers alternatives where possible |
+| Capture a photograph | The image is previewed and associated with the correct incident |
+| Capture without GPS | Photograph storage remains possible |
+| Complete checklist items | The evidence completeness indicator updates |
+| Use voice assistance | Instructions play when supported |
+| Open reporting guidance | The correct instructions and official links appear |
+| Record a failed attempt | The user can access follow-up guidance |
+| Generate a letter | A document is produced if the feature is implemented |
+| Use airplane mode | Previously cached and saved workflows remain available |
+| Share a summary | Only the selected information is shared |
 
-### Suggested two-minute demo
+### User validation plan
 
-**0–15 seconds:** Introduce the 72-hour reporting challenge and PeekRaksha.
+The next validation stage should involve a small, consent-based pilot with farmers and, where possible, agriculture assistants.
 
-**15–30 seconds:** Show the farmer profile and saved crop/plot details.
+We should observe whether users can:
 
-**30–60 seconds:** Select Crop Damage, create an incident, start the countdown, and capture evidence.
+1. Understand the purpose of the app.
+2. Create an incident without assistance.
+3. Capture the intended evidence.
+4. Find the relevant official reporting instructions.
+5. Explain the difference between a saved incident and an official report.
+6. Complete the workflow on a low-end smartphone.
+7. Recover from connectivity or permission failures.
 
-**60–80 seconds:** Demonstrate the Evidence Strength Meter and Marathi voice guidance.
+We should record task completion, time taken, mistakes, assistance required, and user feedback.
 
-**80–100 seconds:** Open Report Now, demonstrate the reporting instructions, and show the escalation ladder.
-
-**100–120 seconds:** Show the fallback letter, ticket timeline, or Share Pack, depending on which features are working reliably.
-
-Use demonstration data rather than exposing real farmers' policy information.
+No user-validation result should be claimed until the test has actually been conducted.
 
 ---
 
-## 📊 Current Implementation Status
+## 17. Current Implementation Status
 
-**This section must reflect the actual repository at submission time.** A proposed architecture or UI mockup is not proof that a feature is implemented.
+The project is an early-stage prototype. This checklist must be updated based on the actual code and demonstration.
 
-Use the following checklist and update it before evaluation.
-
-- [ ] React + Vite application runs successfully.
-- [ ] Responsive Home page is implemented.
+- [ ] React + Vite application builds successfully.
+- [ ] Responsive Home page works.
 - [ ] Farmer profile and crop/plot selection work.
-- [ ] Damage incident creation and deadline calculation work.
-- [ ] Countdown survives page refresh.
-- [ ] Camera capture and photograph persistence work.
-- [ ] Evidence Strength Meter responds to checklist changes.
-- [ ] Marathi voice guidance works on the demonstration device.
-- [ ] Prepare Mode is implemented.
-- [ ] Reporting instructions and external links work.
-- [ ] Escalation guidance is implemented.
-- [ ] Fallback letter generation works offline.
-- [ ] Ticket and timeline records can be saved.
-- [ ] Share Pack is implemented.
-- [ ] PWA installation and offline behavior are tested.
+- [ ] Damage incident creation works.
+- [ ] Deadline calculation and restoration work.
+- [ ] Camera capture and persistence work.
+- [ ] Evidence checklist updates correctly.
+- [ ] Marathi voice assistance works on the target device.
+- [ ] Prepare Mode works.
+- [ ] Reporting instructions and links are verified.
+- [ ] Escalation guidance is available.
+- [ ] Fallback letter generation works.
+- [ ] Ticket and timeline records persist.
+- [ ] Share Pack works with user consent.
+- [ ] PWA installation is tested.
+- [ ] Offline behavior is tested.
 - [ ] Production build completes successfully.
 
-Do not mark an item complete until it has been tested.
+Only mark features complete after verifying them in the running application.
 
 ---
 
-## ⚠️ Limitations
+## 18. From Prototype to Startup
 
-PeekRaksha is an early-stage prototype intended to demonstrate a farmer-side workflow.
+Our startup vision is not simply to add more screens to the PWA.
 
-1. **No official submission integration:** The application does not directly submit claims to PMFBY or an insurer.
-2. **No guaranteed claim acceptance:** Evidence organization does not guarantee that an insurer will accept photographs or other records.
-3. **Browser compatibility:** Camera, geolocation, speech synthesis, sharing, and installation capabilities vary by browser and device.
-4. **Weather uncertainty:** Forecasts are informational and cannot guarantee local conditions or crop damage.
-5. **Deadline accuracy:** The deadline is based on recorded incident information and the configured reporting rule. Users must verify the applicable requirements through official channels.
-6. **No guaranteed cloud backup:** Locally stored records may be lost if browser data is cleared, storage is removed, or the device is lost.
-7. **No verified insurance status:** A locally saved ticket number does not mean the application has verified the official reporting record.
-8. **Language validation:** Marathi wording and voice guidance require testing with actual users.
+It is to evolve from a farmer-side workflow prototype into a reliable crop-loss assistance platform that can be validated in the field and integrated responsibly into the agricultural ecosystem.
 
-The project does not claim a measured reduction in rejected claims because this prototype has not established such an outcome.
+### Stage 1: Stabilize the MVP
+
+**Objective:** Make the existing workflow dependable.
+
+- Fix interface and navigation errors.
+- Verify deadline calculations.
+- Test image persistence.
+- Check all reporting links.
+- Confirm browser compatibility.
+- Add clear error and recovery states.
+- Test offline behavior on real devices.
+
+**Exit condition:** The complete demonstration workflow passes documented tests.
+
+### Stage 2: Validate with farmers
+
+**Objective:** Establish whether the product solves a real user problem.
+
+- Conduct interviews with farmers from the intended pilot area.
+- Observe existing crop-loss reporting practices.
+- Test Marathi wording with native speakers.
+- Evaluate whether the evidence checklist is understandable.
+- Identify barriers that an app cannot solve independently.
+- Compare self-service and assisted-use workflows.
+
+**Exit condition:** Documented user feedback, usability findings, and an evidence-based product backlog.
+
+### Stage 3: Build a dependable production architecture
+
+**Objective:** Introduce the engineering capabilities needed for real-world use.
+
+Potential additions include:
+
+- Secure backend APIs.
+- Authentication and role-based access.
+- Encrypted data transfer and appropriately protected storage.
+- Backup and recovery.
+- Auditable reporting-attempt records.
+- Versioned reporting rules and guidance.
+- Image compression and storage lifecycle management.
+- Monitoring, error reporting, and automated testing.
+- Optional cloud synchronization with explicit consent.
+
+**Exit condition:** A reviewed architecture with security, reliability, and recovery requirements tested before handling real sensitive data at scale.
+
+### Stage 4: Run a controlled pilot
+
+**Objective:** Test the product in actual agricultural workflows.
+
+- Work with a suitable local farmer group or agricultural institution.
+- Train a limited group of users.
+- Provide a clear support and feedback process.
+- Test low-connectivity scenarios.
+- Measure completion and error rates.
+- Review guidance accuracy with qualified domain stakeholders.
+
+**Exit condition:** Pilot findings that support a decision to improve, expand, or change the product.
+
+### Stage 5: Scale responsibly
+
+**Objective:** Expand only after the pilot supports the product's value.
+
+- Add additional districts and languages.
+- Improve low-end device performance.
+- Establish support and incident-response processes.
+- Develop authorized institutional partnerships.
+- Assess integration opportunities with official systems.
+- Introduce operational monitoring and service-level targets.
+- Establish sustainable funding and governance.
+
+**Exit condition:** Demonstrated usability, a supportable operating model, reliable technical performance, and appropriate institutional arrangements.
 
 ---
 
-## 🔮 Future Scope
+## 19. Challenges in Scaling
 
-Potential future improvements include:
+A startup must plan for challenges that do not appear in a six-hour prototype.
 
-- Optional encrypted cloud synchronization and recovery.
-- Secure, expiring evidence-sharing links.
-- Weather alerts tailored to the farmer's location.
-- Improved Marathi and other regional-language support.
-- User-tested accessibility improvements.
-- Better incident history and follow-up reminders.
-- Partnerships with farmer producer organizations, cooperative banks, and agriculture offices.
-- Verified integrations with official systems if suitable APIs and authorization become available.
-- Field testing with farmers to measure usability and reporting preparedness.
+| Challenge | Why it matters | Planned response |
+|---|---|---|
+| Connectivity | Users may be offline during or after an incident | Local-first workflows, retry handling, and explicit sync status |
+| Data loss | Device loss or browser-data deletion can destroy records | Optional encrypted backup and recovery |
+| Evidence integrity | Images and timestamps can be incomplete or manipulated | Preserve original files where feasible, record provenance, and distinguish unverified metadata |
+| Privacy | Policy and location details are sensitive | Data minimization, consent, access controls, and secure storage |
+| Reporting-rule changes | Requirements may change by scheme, loss type, or season | Versioned guidance reviewed against official sources |
+| Language and accessibility | Literal translations may be confusing or inaccurate | Native-speaker testing and assisted-use research |
+| Browser fragmentation | Camera, speech, storage, and sharing vary by device | Compatibility testing and graceful fallbacks |
+| Image storage costs | Photographs consume substantial device and cloud storage | Image optimization, storage limits, and retention controls |
+| Official integration | Government and insurer systems may lack public APIs or require authorization | Begin with verified links and approved channels; pursue formal integration only when available |
+| Trust | Farmers may mistake the app for an official insurance portal | Clear product identity, visible disclaimers, and transparent status labels |
+| Fraud and misuse | Shared or falsified information can cause harm | Preserve provenance and avoid presenting app-generated information as verified evidence |
+| Support and maintenance | Users may need help outside a demonstration | Defined support procedures, training, and operational ownership |
 
-These are future possibilities, not claims about the current implementation.
+These are anticipated challenges and proposed mitigations, not evidence that they have already been solved.
 
 ---
 
-## 👥 Team Contributions
+## 20. Business and Sustainability Model
+
+PeekRaksha should first validate its usefulness to farmers before committing to a business model.
+
+Potential future models include:
+
+### Institutional partnerships
+
+Agricultural organizations, farmer producer organizations, cooperatives, or other suitable institutions could sponsor access, training, or deployment for a defined group of farmers.
+
+### Sponsored deployments
+
+An authorized institution could support a regional implementation with appropriate training, maintenance, and support arrangements.
+
+### Implementation and support services
+
+Future revenue could come from configuring, deploying, maintaining, and supporting institution-specific workflows, subject to procurement and partnership requirements.
+
+### What we would avoid
+
+- Charging distressed farmers before establishing the product's value.
+- Selling sensitive farmer data.
+- Making settlement guarantees.
+- Promising official integrations without authorization.
+- Treating advertising or data monetization as a default business strategy.
+
+**Commercial principle:** The product should create measurable user value first. Revenue and institutional adoption must be validated rather than assumed.
+
+---
+
+## 21. Limitations and Risk Management
+
+1. **No official submission integration:** An incident created in PeekRaksha is not an official claim.
+2. **No guaranteed eligibility:** Scheme rules and insurance conditions determine eligibility.
+3. **No guaranteed evidence acceptance:** Photographs are supporting material, not proof of claim approval.
+4. **Configurable deadline:** The timer must reflect the applicable reporting rule and the user's recorded incident details.
+5. **Browser limitations:** Camera, voice, geolocation, and installation support varies.
+6. **No guaranteed backup:** Local data can be lost.
+7. **Weather uncertainty:** Forecasts cannot guarantee damage or local conditions.
+8. **Unverified reporting status:** A locally entered ticket number does not verify receipt by an insurer.
+9. **No demonstrated outcome improvement:** The prototype has not yet established a reduction in reporting errors, delays, or claim rejections.
+10. **No established production readiness:** Security, scalability, operational support, and institutional integration require further work.
+
+---
+
+## 22. Future Roadmap
+
+| Phase | Priority | Intended outcome |
+|---|---|---|
+| Phase 1 | Stabilize existing features | Reliable demonstration and tested core workflow |
+| Phase 2 | Farmer research | Evidence-based requirements and usability findings |
+| Phase 3 | Security and backend design | Dependable persistence, recovery, and access controls |
+| Phase 4 | Controlled pilot | Measured real-world usability |
+| Phase 5 | Institutional collaboration | Sustainable deployment and authorized integration opportunities |
+| Phase 6 | Regional expansion | Additional languages, districts, and supported workflows |
+
+The roadmap is conditional on testing, available resources, and stakeholder feedback.
+
+---
+
+## 23. Team Contributions
 
 The project is being developed collaboratively by three team members.
 
 | Team member | Primary responsibility |
 |---|---|
-| Member 1 | Frontend UI, Home page, Crop Damage workflow, profile and responsive design |
-| Member 2 | Camera capture, evidence management, local persistence and offline PWA behavior |
-| Member 3 | Countdown, Marathi voice guidance, reporting, escalation, fallback letter and sharing |
+| Member 1 | Frontend interface, Home page, incident workflow, and responsive design |
+| Member 2 | Camera capture, evidence management, persistence, and offline PWA behavior |
+| Member 3 | Countdown, Marathi voice guidance, reporting, escalation, document generation, and sharing |
 
-Replace these generic roles with actual team members' names and describe any changes in responsibility before submission.
-
----
-
-## 🌱 Expected Impact
-
-PeekRaksha aims to reduce confusion during a stressful crop-loss incident by bringing the farmer's information, evidence checklist, reporting instructions, and deadline into one accessible interface.
-
-Its value lies in supporting the steps around official reporting:
-
-- **Prepare** information before a loss occurs.
-- **Capture** organized evidence after damage.
-- **Track** the reporting window.
-- **Guide** the farmer toward an appropriate reporting channel.
-- **Escalate** when an attempt fails.
-- **Share** information with trusted helpers.
-
-The intended outcome is a more organized and accessible crop-loss reporting experience, especially for Marathi-speaking farmers operating with limited connectivity.
+Replace these role descriptions with the actual team members' names and contributions before submission.
 
 ---
 
-## 📜 Disclaimer
+## 24. Expected Impact and Success Metrics
 
-PeekRaksha is an independent assistance prototype and is not an official government application or PMFBY portal.
+The initial impact hypothesis is that guided incident preparation can make the crop-loss reporting process easier to understand and execute.
 
-Farmers should verify current reporting requirements, applicable deadlines, and authorized reporting channels with the relevant government department, insurer, or official helpline.
+We should evaluate this using measurable outcomes rather than unsupported claims.
 
-The application does not guarantee insurance eligibility, claim acceptance, or settlement.
+### Proposed metrics
+
+| Metric | What it measures |
+|---|---|
+| Incident creation completion rate | Whether users can create an incident successfully |
+| Evidence checklist completion | Whether users capture the requested evidence categories |
+| Time to locate reporting instructions | How quickly users find the relevant next step |
+| Independent task completion | Whether users can complete the workflow without assistance |
+| Offline task completion | Whether core tasks work without network access |
+| Data recovery success | Whether saved records survive refreshes and supported recovery scenarios |
+| Guidance accuracy | Whether reporting instructions match verified official sources |
+| User comprehension | Whether users understand the difference between preparation and official submission |
+| User satisfaction | Whether the workflow is understandable and useful |
+
+Baseline values and targets should be established through testing. No improvement percentages should be claimed without supporting data.
+
+### Intended long-term value
+
+- Better-organized incident information.
+- Fewer forgotten evidence checklist items.
+- Clearer reporting instructions.
+- Better visibility into reporting attempts and follow-up.
+- More accessible digital assistance for Marathi-speaking farmers.
+
+These are intended benefits that require validation.
 
 ---
 
-## ❤️ Built for Farmers
+## 25. References and Live Evidence
+
+1. **PMFBY Revised Operational Guidelines** — reporting provisions for applicable localized calamities and post-harvest losses.  
+   https://pmfby.gov.in/pdf/Revised_Operational_Guidelines.pdf
+
+2. **Official PMFBY Dashboard** — crop-loss reporting and grievance channels.  
+   https://pmfby.gov.in/pmfbyDashboard
+
+3. **Reuters, October 28, 2025** — late-season rainfall and damage to Indian crops.  
+   https://www.reuters.com/business/environment/monsoon-promise-turns-sour-indias-crops-ruined-by-late-downpours-2025-10-28/
+
+4. **The Indian Express, January 22, 2025** — reporting on alleged bogus crop-insurance claims in Maharashtra.  
+   https://indianexpress.com/article/cities/mumbai/maharashtra-agriculture-dept-finds-4-14-lakh-bogus-crop-insurance-claims-9792163/
+
+5. **Press Information Bureau, July 24, 2026** — crop-insurance assessment and climate-risk information.  
+   https://www.pib.gov.in/PressReleasePage.aspx?PRID=2289028&lang=2&reg=48
+
+6. **Open-Meteo** — optional weather forecast API.  
+   https://open-meteo.com/
+
+These sources support the problem context and design rationale. They do not constitute an endorsement of PeekRaksha or prove its effectiveness.
+
+---
+
+## 26. Disclaimer
+
+PeekRaksha is an independent assistance prototype. It is not an official government application, PMFBY portal, insurer, or claim-assessment authority.
+
+Applicable reporting requirements, eligibility, deadlines, and authorized channels must be verified with the relevant official sources.
+
+The application does not guarantee claim acceptance, compensation, or settlement.
 
 **PeekRaksha — Amcha Saath, Tumcha Aadhar**
 
